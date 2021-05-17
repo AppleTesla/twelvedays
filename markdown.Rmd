@@ -16,13 +16,26 @@ This is an R Markdown document. Markdown is a simple formatting syntax for autho
 When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
 ```{r cars}
+# import data
 xmas <- read.csv("https://www.dropbox.com/s/e584pryn8evm1gz/xmas.csv?dl=1")
-xmas
+xmas2 <- read.csv("https://www.dropbox.com/s/ap2hqssese1ki4j/xmas_2.csv?dl=1")
 
+# phrased
 xmas <- xmas %>%
   dplyr::mutate(
-    Full.Phrase = make_phrase(Day, Day.in.Words, Gift.Item, Verb, Adjective, Location)
+    Full.Phrase = purrr::pmap_chr(., ~make_phrase(..1, ..2, ..3, ..4, ..5, ..6))
   )
+xmas
 
-sing_day(xmas, 2, Full.Phrase)
+xmas2 <- xmas2 %>%
+  dplyr::mutate(
+    Full.Phrase = purrr::pmap_chr(., ~make_phrase(..1, ..2, ..3, ..4, ..5, ..6))
+  )
+xmas2
+
+formatted <- sing_day(xmas, 2, Full.Phrase)
+# cat(formatted)
+
+formatted2 <- sing_day(xmas2, 12, Full.Phrase)
+cat(formatted2)
 ```

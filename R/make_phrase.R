@@ -13,11 +13,26 @@
 #' @import glue
 #' @import dplyr
 #' @import purrr
+#' @import english
 #'
 #' @export
 
-make_phrase <- function(num, num_word, item, verb, adjective, location){
-  phrase <- glue::glue("{num_word} {adjective} {item} {verb} {location}", .sep = " ", .na = " ")
-  final_phase <- stringr::str_replace_all(phrase, "[:space:]{2,}", " ")
-  return(final_phase)
+
+
+make_phrase <- function(num, num_word, item, verb, adjective, location) {
+  if (num > 1) {
+    item <- pluralize_gift(item)
+  }
+
+  num <- english::as.english(num)                                         # Use English form of numerical
+  startsWithVowel <- stringr::str_detect(item, pattern = "^[aeiouAEIOU]")      # Distinguish between use of A or An
+
+  phrase <- glue::glue("{if(num == 1 & startsWithVowel) 'An' else if(num == 1 & !startsWithVowel) 'A' else stringr::str_to_title(num)} {adjective} {item} {verb} {location}",
+                       .sep = " ",
+                       .na = " ")
+
+  final_phrase <- stringr::str_replace_all(phrase, "[:space:]{2,}", " ")  # Eliminate duplicate spaces
+  final_phrase <- stringr::str_trim(final_phrase)                         # Trim whitespace
+
+  return(final_phrase)
 }
