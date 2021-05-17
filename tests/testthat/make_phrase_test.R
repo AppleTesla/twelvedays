@@ -13,7 +13,7 @@ test_that("running make_phrase differentiates between A/An", {
   expect_true(stringr::str_detect(startsWithVowel, "^An"))
 })
 
-test_that("running make_phrase differentiates between A/An", {
+test_that("running make_phrase results in zero double-spaces", {
   noDoubleSpaces <- twelvedays::make_phrase(1, "second", "iPhone", "vibrating", "flashy", "from a friend")
   expect_false(stringr::str_detect(noDoubleSpaces, "[:space:][:space:]"))
 })
