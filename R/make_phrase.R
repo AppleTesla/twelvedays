@@ -16,14 +16,8 @@
 #'
 #' @export
 
-
-
 make_phrase <- function(num, num_word, item, verb, adjective, location){
-
-  verb <- str_replace_na(verb, "")
-
-  #????
-
-
+  phrase <- glue::glue("{num_word} {adjective} {item} {verb} {location}", .sep = " ", .na = " ")
+  final_phase <- stringr::str_replace_all(phrase, "[:space:]{2,}", " ")
+  return(final_phase)
 }
-

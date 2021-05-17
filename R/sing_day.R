@@ -15,9 +15,11 @@
 #' @export
 sing_day <- function(dataset, line, phrase_col){
 
-  phrases <- dataset %>% pull({{phrase_col}})
+  # phrases <- dataset %>% dplyr::pull({{phrase_col}})
 
-  #????
+  opening <- glue::glue("On the {dataset[line, ]$Day.in.Words}")
 
+  return("opening")
 
+  # total_phrase <- purrr::pmap_chr(dataset, make_phrase(dataset$Day))
 }
