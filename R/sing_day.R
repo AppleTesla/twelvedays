@@ -36,7 +36,9 @@ sing_day <- function(dataset, line, phrase_col) {
                                      replacement = "And an ")
   }
 
-  full_phrase <- purrr::map_chr(lines, stringr::str_flatten, collapse = "\n")   # Concatenate gift lines
+  lines <- as.data.frame(lines)
+
+  full_phrase <- purrr::map_chr(lines, stringr::str_flatten, collapse = ",\n")   # Concatenate gift lines
   full_phrase <- paste(opening, full_phrase, sep = "\n")                        # Concatenate opening line with gift lines
   full_phrase <- paste0(full_phrase, ".")                                       # Add a period at the end
 
