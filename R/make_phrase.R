@@ -27,7 +27,9 @@ make_phrase <- function(num, num_word, item, verb, adjective, location) {
   num <- english::as.english(num)                                             # Use English form of numerical
   startsWithVowel <- stringr::str_detect(item, pattern = "^[aeiouAEIOU]")     # Distinguish between use of A or An
 
-  phrase <- glue::glue("{if(num == 1 & startsWithVowel) 'An' else if(num == 1 & !startsWithVowel) 'A' else stringr::str_to_title(num)} {adjective} {item} {verb} {location}",
+  phrase <- glue::glue("{if(num == 1 & startsWithVowel) 'An'
+                       else if(num == 1 & !startsWithVowel) 'A'
+                       else stringr::str_to_title(num)} {adjective} {item} {verb} {location}",
                        .sep = " ",
                        .na = " ")
 
